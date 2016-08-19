@@ -19,7 +19,7 @@ class TrapHandler(object):
     def handles(self, trap):
         if trap.oid == self.trap_type:
             for trap_arg in trap.arguments:
-                if str(trap_arg) not in ['1.3.6.1.2.1.1.3.0'] and trap_arg not in self.trap_args.keys():
+                if ((str(trap_arg) not in ['1.3.6.1.2.1.1.3.0']) and (str(trap_arg) not in ['1.3.6.1.2.1.1.3'])) and trap_arg not in self.trap_args.keys():
                     return False
             return True
         return False

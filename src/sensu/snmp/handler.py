@@ -18,9 +18,12 @@ class TrapHandler(object):
 
     def handles(self, trap):
         if trap.oid == self.trap_type:
+            log.debug("  -1- trap.arguments=%s \n" % (trap.arguments))
             for trap_arg in trap.arguments:
-                # It's work on SNMP v2. And don't work on SNMP v.1
-                if ((str(trap_arg) not in ['1.3.6.1.2.1.1.3.0']) and (str(trap_arg) not in ['1.3.6.1.2.1.1.3'])) and trap_arg not in self.trap_args.keys():
+                log.debug("  -2- trap_arg=%s \n" % (trap_arg))
+                # Ignore OIDs
+                if (str(trap_arg) not in ['1.3.6.1.2.1.1.3.0','1.3.6.1.2.1.1.3','1.3.6.1.6.3.18.1.4','1.3.6.1.6.3.1.1.4.3','1.3.6.1.6.3.18.1.3']) and trap_arg not in self.trap_args.keys():
+                    log.debug("  -3- srt(trap_arg)=%s \n  - trap_arg=%s \n  - self.trap_arg.keys()=%s \n RETURN FALSE" % (str(trap_arg), trap_arg, self.trap_args.keys()))
                     return False
             return True
         return False
